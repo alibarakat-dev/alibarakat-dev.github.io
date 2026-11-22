@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ali Barakat — Developer</title>
+<meta name="description" content="Ali Barakat, full-stack developer: Telegram bots, Flutter apps, Python back ends and business software.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: calm, direct, a working engineer's page for hiring managers.
+   IDEA: the page behaves like the thing he ships most, a Telegram bot in use.
+   PICTURE: a phone running his live lectures bot, messages arriving once.
+   COLOUR and TYPE: white ground, deep navy ink, Telegram blue as the one accent; Onest throughout.
+   LAYOUT: name and contact left, phone right; work as a featured product then a ruled list; experience as a dated timeline. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0d1724);--ink:light-dark(#0e1b2a,#e9f0f7);--soft:light-dark(#516173,#9fb0c2);
+--line:light-dark(#e3e9ef,#22324a);--sky:light-dark(#eaf5fc,#132338);--blue:#2a9fe0;--blue-ink:light-dark(#1477b8,#5cbcf0);
+--bubble:light-dark(#ffffff,#1b2c42);--mine:light-dark(#dff3d4,#2b5278);--chat:light-dark(#cfe3ee,#0f1e2f)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 Onest,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+a{color:var(--blue-ink)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(5vw,18px)}
+h1,h2,h3{line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,3.6vw,40px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:20px;font-weight:600}
+p{margin:0}
+
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:20px;min-height:60px;flex-wrap:wrap}
+.logo{font-weight:700;text-decoration:none;color:var(--ink);margin-inline-end:auto}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{color:var(--soft);text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:500}
+nav a:hover{color:var(--ink);background:var(--sky)}
+
+.hero{background:var(--sky)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,72px);align-items:center;padding-block:clamp(40px,6vw,88px)}
+.hero h1{font-size:clamp(44px,6.4vw,76px);font-weight:700;letter-spacing:-.025em}
+.role{font-size:clamp(19px,2vw,23px);margin-top:16px;max-width:30ch;font-weight:500}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;color:var(--soft)}
+.facts span{white-space:nowrap}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border-radius:12px;font-weight:600;text-decoration:none;border:1.5px solid var(--blue);color:var(--blue-ink)}
+.btn.main{background:var(--blue);color:#fff}
+.btn:hover{filter:brightness(1.06)}
+.contact-line{margin-top:16px;color:var(--soft);font-size:15px}
+
+.phone{justify-self:center;width:min(100%,340px);aspect-ratio:9/17.5;border-radius:42px;padding:12px;background:light-dark(#0e1b2a,#04090f);box-shadow:0 30px 60px -24px rgba(14,27,42,.45)}
+.screen{height:100%;border-radius:32px;overflow:hidden;display:flex;flex-direction:column;background:var(--chat)}
+.bar{display:flex;align-items:center;gap:10px;padding:16px 16px 12px;background:var(--bubble);border-bottom:1px solid var(--line)}
+.ava{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.bar b{display:block;font-size:15px;line-height:1.2}.bar small{color:var(--soft);font-size:13px}
+.msgs{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;padding:14px;font-size:14px;line-height:1.4}
+.m{max-width:82%;padding:8px 12px;border-radius:14px;background:var(--bubble);opacity:0;transform:translateY(8px);animation:in .45s ease forwards}
+.m.me{align-self:flex-end;background:var(--mine)}
+.keys{display:grid;grid-template-columns:1fr 1fr;gap:6px;max-width:92%}
+.keys span{background:color-mix(in srgb,var(--bubble) 70%,transparent);border-radius:10px;padding:7px 6px;text-align:center;font-weight:500;font-size:13px}
+.file{display:flex;gap:10px;align-items:center}
+.file i{width:34px;height:34px;border-radius:50%;background:var(--blue);flex:none;position:relative}
+.file i::after{content:"";position:absolute;left:12px;top:9px;width:10px;height:14px;border:2px solid #fff;border-top-width:5px;border-radius:2px}
+.file small{display:block;color:var(--soft);font-size:13px}
+@keyframes in{to{opacity:1;transform:none}}
+.d1{animation-delay:.3s}.d2{animation-delay:1s}.d3{animation-delay:1.7s}.d4{animation-delay:2.4s}.d5{animation-delay:3.1s}
+.caption{text-align:center;color:var(--soft);font-size:14px;margin-top:14px}
+
+section.band{padding-block:clamp(48px,6vw,96px)}
+.lead{color:var(--soft);margin-top:12px;max-width:62ch}
+
+.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center;margin-top:40px}
+.feature ul{margin:18px 0 0;padding-inline-start:20px}
+.feature li{margin-bottom:8px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.tags span{font-size:14px;padding:4px 10px;border-radius:999px;background:var(--sky);color:var(--blue-ink);font-weight:500;white-space:nowrap}
+.status{display:inline-block;font-size:14px;font-weight:600;color:var(--blue-ink);margin-bottom:8px}
+
+.app{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--bg);box-shadow:0 24px 50px -30px rgba(14,27,42,.4);font-size:12px}
+.app .top{display:flex;gap:6px;padding:10px 12px;background:var(--sky);border-bottom:1px solid var(--line)}
+.app .top i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.app .body{display:grid;grid-template-columns:minmax(0,1fr) 92px;min-height:270px}
+.app .side{background:#123a5c;color:#dbe9f5;padding:12px 10px;display:flex;flex-direction:column;gap:9px;direction:rtl;font-size:13px}
+.app .side b{color:#e8c36a;font-size:14px}
+.app .main{padding:14px;display:flex;flex-direction:column;gap:12px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.kpis div{border:1px solid var(--line);border-radius:8px;padding:8px}
+.kpis s{display:block;height:7px;width:60%;background:var(--line);text-decoration:none;border-radius:4px;margin-bottom:8px}
+.kpis em{display:block;height:12px;width:80%;background:#d4a743;border-radius:4px;opacity:.75}
+.bars{flex:1;display:flex;align-items:flex-end;gap:7px;border:1px solid var(--line);border-radius:8px;padding:10px;min-height:120px}
+.bars span{flex:1;background:#2f6fa3;border-radius:3px 3px 0 0}
+.note{color:var(--soft);font-size:13px;margin-top:10px}
+
+.list{margin-top:48px;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.6fr) minmax(0,.9fr);gap:12px 28px;padding:24px 0;border-bottom:1px solid var(--line)}
+.row h3{font-size:19px}
+.row .what{color:var(--ink)}
+.row .stack{color:var(--soft);font-size:15px}
+.row .st{display:block;font-size:14px;font-weight:600;color:var(--blue-ink);margin-top:6px}
+
+.timeline{margin-top:36px;display:grid;gap:0}
+.job{display:grid;grid-template-columns:170px minmax(0,1fr);gap:8px 32px;padding:26px 0;border-bottom:1px solid var(--line)}
+.job time{color:var(--soft);font-weight:500;white-space:nowrap}
+.job ul{margin:10px 0 0;padding-inline-start:20px}.job li{margin-bottom:6px}
+.job p.org{color:var(--soft)}
+
+.skills{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 40px;margin-top:36px}
+.skills h3{font-size:17px;margin-bottom:8px}
+.skills p{color:var(--soft)}
+
+.edu{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 40px;margin-top:36px}
+.edu p{color:var(--soft);margin-top:6px}
+
+footer{background:#0e1b2a;color:#e9f0f7}
+footer .wrap{padding-block:clamp(48px,6vw,88px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:end}
+footer h2{color:#fff}
+footer p{color:#a9bccf;margin-top:12px;max-width:46ch}
+footer .ways{display:grid;gap:10px}
+footer .ways a{display:flex;justify-content:space-between;gap:16px;padding:16px 18px;border-radius:12px;background:#17283c;color:#fff;text-decoration:none;font-weight:500;flex-wrap:wrap}
+footer .ways a span{color:#8fd0f5}
+footer .ways a:hover{background:#1d3350}
+.copy{border-top:1px solid #22324a;color:#7f93a8;font-size:14px;padding-block:18px}
+
+@media(max-width:860px){
+ .hero .wrap,.feature,footer .wrap{grid-template-columns:minmax(0,1fr)}
+ .row{grid-template-columns:minmax(0,1fr)}
+ .skills,.edu{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+}
+@media(max-width:600px){
+ nav{display:none}
+ .phone{width:min(100%,300px)}
+ .job{grid-template-columns:minmax(0,1fr)}
+ .skills,.edu{grid-template-columns:minmax(0,1fr)}
+ .app .body{grid-template-columns:minmax(0,1fr) 74px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.m{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="wrap">
+  <a class="logo" href="#top">Ali Barakat</a>
+  <nav aria-label="Sections">
+   <a href="#work">Work</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a>
+  </nav>
+ </div>
+</header>
+
+<main id="top">
+ <section class="hero">
+  <div class="wrap">
+   <div>
+    <h1>Ali Barakat</h1>
+    <p class="role">Full-stack developer. I build Telegram bots, Flutter apps and business software, and run them in production.</p>
+    <div class="facts">
+     <span>Python · Flutter · FastAPI · PostgreSQL</span>
+     <span>Based in Syria, open to relocating to the UAE</span>
+    </div>
+    <div class="cta">
+     <a class="btn main" href="mailto:alibarakat394@gmail.com">Email me</a>
+     <a class="btn" href="https://wa.me/963936013766">WhatsApp</a>
+    </div>
+    <p class="contact-line">alibarakat394@gmail.com · +963 936 013 766</p>
+   </div>
+
+   <div>
+    <div class="phone" role="img" aria-label="A phone showing the Muhadarati Telegram bot sending a student a past exam paper">
+     <div class="screen">
+      <div class="bar"><div class="ava">M</div><div><b>Muhadarati</b><small>bot</small></div></div>
+      <div class="msgs" aria-hidden="true">
+       <div class="m me d1">/start</div>
+       <div class="m d2">Welcome! What do you need today?</div>
+       <div class="keys m d2"><span>Lectures</span><span>Exam schedule</span><span>Past exams</span><span>Help</span></div>
+       <div class="m me d3">Past exams</div>
+       <div class="m d4">Pick a course: Algorithms, Databases, Networks…</div>
+       <div class="m d5 file"><i></i><div>Databases 2025.pdf<small>1.2 MB · from the archive</small></div></div>
+      </div>
+     </div>
+    </div>
+    <p class="caption">Muhadarati, a live bot for Al-Wadi University IT students</p>
+   </div>
+  </div>
+ </section>
+
+ <section class="band" id="work">
+  <div class="wrap">
+   <h2>Selected work</h2>
+   <p class="lead">Products I designed and built end to end, from database design to deployment. Several are in daily use or delivered to paying clients.</p>
+
+   <div class="feature">
+    <div>
+     <span class="status">Commercial product · Beta 2026</span>
+     <h3 style="font-size:clamp(24px,2.6vw,30px)">AL-Khalil accounting software</h3>
+     <p style="margin-top:12px">A Windows accounting and inventory program for companies of any size, built to match the feature set of leading Arabic accounting suites with a calmer, modern interface.</p>
+     <ul>
+      <li>Double-entry accounting with a full chart of accounts, sales and purchase invoices and multiple warehouses</li>
+      <li>Multi-currency with historical exchange rates, loyalty points and live invoice profit</li>
+      <li>Offline-first, automatic backup on exit, licensing protection against tampering</li>
+      <li>Reviewed phase by phase by a finance manager before release</li>
+     </ul>
+     <div class="tags"><span>Windows desktop</span><span>Arabic RTL UI</span><span>Licensing</span><span>Local database</span></div>
+    </div>
+    <div>
+     <div class="app" role="img" aria-label="Simplified illustration of the AL-Khalil dashboard with an Arabic sidebar, summary cards and a sales chart">
+      <div class="top"><i></i><i></i><i></i></div>
+      <div class="body">
+       <div class="main">
+        <div class="kpis"><div><s></s><em></em></div><div><s></s><em></em></div><div><s></s><em></em></div></div>
+        <div class="bars"><span style="height:40%"></span><span style="height:62%"></span><span style="height:48%"></span><span style="height:78%"></span><span style="height:58%"></span><span style="height:88%"></span><span style="height:70%"></span></div>
+       </div>
+       <div class="side"><b>الخليل</b><span>الرئيسية</span><span>الفواتير</span><span>المستودعات</span><span>الحسابات</span><span>التقارير</span></div>
+      </div>
+     </div>
+     <p class="note">Illustration of the dashboard layout. Screenshots to be added.</p>
+    </div>
+   </div>
+
+   <div class="list" id="projects"></div>
+  </div>
+ </section>
+
+ <section class="band" id="experience" style="background:var(--sky)">
+  <div class="wrap">
+   <h2>Experience</h2>
+   <div class="timeline">
+    <div class="job">
+     <time>2022 – Present</time>
+     <div>
+      <h3>Freelance software developer</h3>
+      <p class="org">Self-employed</p>
+      <ul>
+       <li>Design, build and maintain Telegram bots, Flutter apps and business management systems for clients and my own products.</li>
+       <li>Own the full cycle: requirements, database design, development, Linux deployment and support.</li>
+       <li>Price and deliver commercial work with setup fees and monthly hosting or subscription plans.</li>
+      </ul>
+     </div>
+    </div>
+    <div class="job">
+     <time>Mar 2026 – Oct 2026</time>
+     <div>
+      <h3>Back-end and Telegram bot developer</h3>
+      <p class="org">QATEE, livestock investment platform · Contract</p>
+      <ul>
+       <li>Built the Telegram bot (aiogram) and FastAPI back end on PostgreSQL, sized for 2,000 concurrent users.</li>
+       <li>Integrated the back end with a Telegram Mini App built with a front-end partner.</li>
+       <li>Deployed to production on a Linux VPS with a custom domain and HTTPS, and reported progress to the project manager.</li>
+      </ul>
+     </div>
+    </div>
+   </div>
+  </div>
+ </section>
+
+ <section class="band" id="skills">
+  <div class="wrap">
+   <h2>Skills</h2>
+   <div class="skills" id="skillgrid"></div>
+  </div>
+ </section>
+
+ <section class="band" style="background:var(--sky)">
+  <div class="wrap">
+   <h2>Education and training</h2>
+   <div class="edu">
+    <div><h3>Bachelor of Informatics Engineering</h3><p>Al-Wadi Private University, Syria. Expected graduation early 2027.</p></div>
+    <div><h3>Mobile App Development (Flutter)</h3><p>Darrebni, Homs. Six-month training, 2022, with certificate.</p></div>
+    <div><h3>Languages</h3><p>Arabic, native. English, upper-intermediate (B2).</p></div>
+   </div>
+  </div>
+ </section>
+</main>
+
+<footer id="contact">
+ <div class="wrap">
+  <div>
+   <h2>Let's work together</h2>
+   <p>I'm looking for a developer role in the UAE or remote. Email or WhatsApp and I'll reply within a day.</p>
+  </div>
+  <div class="ways">
+   <a href="mailto:alibarakat394@gmail.com">Email <span>alibarakat394@gmail.com</span></a>
+   <a href="https://wa.me/963936013766">WhatsApp <span>+963 936 013 766</span></a>
+  </div>
+ </div>
+ <div class="wrap copy">© 2026 Ali Barakat</div>
+</footer>
+
+<script>
+{
+ const projects=[
+  {n:"QATEE",w:"Telegram bot and Mini App for livestock investment cycles, deployed on a VPS with HTTPS.",s:"Python, aiogram, FastAPI, PostgreSQL",st:"Delivered to production"},
+  {n:"MT5 trade copier",w:"Copies a trading agent's MetaTrader 5 trades to client accounts, with a Telegram bot for subscriptions and payments.",s:"Python, MetaTrader 5, Telegram Bot API",st:"Client project, 2026"},
+  {n:"Agent panel automation bot",w:"Runs an online platform's agent panel from Telegram: accounts, deposits, withdrawals, referrals and gift codes.",s:"Python, curl_cffi, Playwright",st:"In daily use"},
+  {n:"Muhadarati",w:"Gives university IT students lectures, exam schedules and past exam papers in a few taps.",s:"Python, Telegram Bot API",st:"Live"},
+  {n:"LRec Player",w:"Reverse-engineered a proprietary lecture-recording format and converts it to MP4/MP3; offline Flutter player in progress.",s:"Python, Flutter",st:"In development"},
+  {n:"Pharmacy, cosmetics and dental systems",w:"Point-of-sale and practice management: batches and expiry, barcode cashier, loyalty, scheduling, treatment plans.",s:"Flutter, Python",st:"In development"},
+  {n:"USSD transfer app",w:"Automates mobile-credit transfers on Syriatel and MTN by running USSD codes in the background.",s:"Flutter, Android",st:"Built for my own business"},
+  {n:"Workout tracker",w:"Offline gym log with an exercise library, personal records, progress photos and backup.",s:"Flutter, local storage",st:"In development"},
+  {n:"Jebly delivery platform",w:"Customer, driver and store apps plus an admin panel, with cash and e-wallet payments.",s:"Flutter, Python",st:"In design"}
+ ];
+ document.getElementById('projects').innerHTML=projects.map(p=>`<div class="row"><div><h3>${p.n}</h3><span class="st">${p.st}</span></div><p class="what">${p.w}</p><p class="stack">${p.s}</p></div>`).join('');
+
+ const skills=[
+  ["Languages","Python, Dart, SQL, HTML, CSS"],
+  ["Back end and APIs","FastAPI, asyncio, REST APIs, curl_cffi, Playwright"],
+  ["Telegram","Bot API, aiogram, Mini Apps, payment and admin flows"],
+  ["Mobile and desktop","Flutter for Android and Windows, offline-first apps, Arabic RTL interfaces"],
+  ["Databases","PostgreSQL, relational design, ERD, normalization"],
+  ["DevOps","Ubuntu VPS, SSH, domains, SSL/HTTPS, deployment, backups"]
+ ];
+ document.getElementById('skillgrid').innerHTML=skills.map(([h,t])=>`<div><h3>${h}</h3><p>${t}</p></div>`).join('');
+}
+</script>
+</body>
+</html>
